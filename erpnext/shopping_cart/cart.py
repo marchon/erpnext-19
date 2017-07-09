@@ -66,6 +66,12 @@ def place_order():
 	sales_order.insert()
 	sales_order.submit()
 
+	from erpnext.selling.doctype.sales_order.sales_order import make_sales_invoice
+	sales_invoice = frappe.get_doc(make_sales_invoice(sales_order.name, ignore_permissions=True))
+	sales_invoice.flags.ignore_permissions = True
+	sales_invoice.insert()
+	sales_invoice.submit()
+
 	if hasattr(frappe.local, "cookie_manager"):
 		frappe.local.cookie_manager.delete_cookie("cart_count")
 
