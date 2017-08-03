@@ -51,9 +51,10 @@ class TestQuotation(unittest.TestCase):
 		quotation.submit()
 
 		sales_order = make_sales_order(quotation.name)
-		sales_order.delivery_date = "2016-01-02"
 		sales_order.naming_series = "_T-Quotation-"
 		sales_order.transaction_date = "2016-01-01"
+		sales_order.delivery_date = "2016-01-02"
+
 		sales_order.insert()
 
 		self.assertEquals(quotation.get("items")[0].rate, rate_with_margin)
